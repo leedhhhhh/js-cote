@@ -56,3 +56,42 @@ console.log(validAnagram("awesome", "awesom")); // false
 console.log(validAnagram("amanaplanacanalpanama", "acanalmanplanpamana")); // false
 console.log(validAnagram("qwerty", "qeywrt")); // true
 console.log(validAnagram("texttwisttime", "timetwisttext")); // true
+
+
+
+// 다른 정답 (이게 더 좋은거같음 비교적 간결하고 객체를 두개 선언할 필요도 없고 두번째 for문 구문에서 -1 을 해주면서 하나씩 없애는거도 좋은 방법인거같음
+function validAnagram(firstStr, secondStr) {
+  // 글자의 개수가 다르면 false 반환
+  if (firstStr.length !== secondStr.length) {
+    return false;
+  }
+
+  const letterCount = {};
+
+  // 첫 번째 문자열의 빈도수 세기
+  for (let char of firstStr) {
+    letterCount[char] = (letterCount[char] || 0) + 1;
+  }
+
+  // 두 번째 문자열의 빈도수와 첫 번째 문자열의 빈도수 비교
+  for (let char of secondStr) {
+    if (!letterCount[char]) {
+      return false; // 문자가 없거나 0이면 애너그램이 아님
+    } else {
+      letterCount[char] -= 1;
+    }
+  }
+
+  return true;
+}
+
+// 테스트 케이스
+console.log(validAnagram("", "")); // true
+console.log(validAnagram("aaz", "zza")); // false
+console.log(validAnagram("anagram", "nagaram")); // true
+console.log(validAnagram("rat", "car")); // false
+console.log(validAnagram("awesome", "awesom")); // false
+console.log(validAnagram("amanaplanacanalpanama", "acanalmanplanpamana")); // false
+console.log(validAnagram("qwerty", "qeywrt")); // true
+console.log(validAnagram("texttwisttime", "timetwisttext")); // true
+
